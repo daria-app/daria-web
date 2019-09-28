@@ -17,9 +17,6 @@
     <div class="container">
       <div class="card col-md-6 mt-3 mx-auto">
         <div class="card-body">
-          <h4 class="card-title text-center">
-            <i class="far fa-3x fa-user-circle text-muted"></i>
-          </h4>
           <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
             <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
               Username or password incorrect.

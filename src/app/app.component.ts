@@ -16,19 +16,15 @@ const log = new Logger('App');
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
     private translateService: TranslateService,
     private i18nService: I18nService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
-
     // Setup logger
     if (environment.production) {
       Logger.enableProductionMode();

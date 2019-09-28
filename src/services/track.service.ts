@@ -15,7 +15,7 @@ export interface RandomQuoteContext {
 @Injectable({
   providedIn: 'root'
 })
-export class QuoteService {
+export class TrackService {
   constructor(private httpClient: HttpClient) {}
 
   getRandomQuote(context: RandomQuoteContext): Observable<string> {
