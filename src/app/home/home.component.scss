@@ -1,5 +1,15 @@
-.logo {
-  width: 100px;
+.home {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  .logo {
+    width: 100px;
+  }
+  .home-title {
+    font-size: 30px;
+  }
 }
 
 q {

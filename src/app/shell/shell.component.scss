@@ -1,0 +1,27 @@
+@import "src/theme/theme-variables";
+
+.navbar {
+  margin-bottom: $spacer;
+}
+
+.nav-link.dropdown-toggle {
+  cursor: pointer;
+}
+
+.menu-icon {
+  margin-right: 4px;
+}
+
+.menu-logo {
+  width: 26px;
+}
+
+.nav-items {
+  display: flex;
+  .nav-item {
+    text-decoration: none;
+    margin-left: 2px;
+    margin-right: 2px;
+    color: white;
+  }
+}

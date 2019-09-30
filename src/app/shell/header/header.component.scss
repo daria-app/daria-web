@@ -7,3 +7,36 @@
 .nav-link.dropdown-toggle {
   cursor: pointer;
 }
+
+.nav-items {
+  display: flex;
+  .nav-item {
+    text-decoration: none;
+    width: 32px;
+    height: 32px;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: white;
+    .menu-logo {
+      width: 32px;
+      height: 32px;
+    }
+    .menu-icon {
+      margin-right: 4px;
+    }
+    .mat-icon {
+      font-size: 32px;
+    }
+  }
+}
+
+.mat-toolbar-row {
+  height: initial;
+  padding-left: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.mat-toolbar-multiple-rows {
+  min-height: initial;
+}

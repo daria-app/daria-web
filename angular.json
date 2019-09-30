@@ -70,7 +70,8 @@
           "options": {
             "hmr": true,
             "hmrWarning": false,
-            "browserTarget": "ng-x-rocket:build"
+            "browserTarget": "ng-x-rocket:build",
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {
