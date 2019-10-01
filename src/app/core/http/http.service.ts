@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken, Injector, Optional, Type } from '@angular/core';
-import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
@@ -94,6 +94,20 @@ export class HttpService extends HttpClient {
       this.httpHandler
     );
     return new HttpClient(handler).request(method, url, options);
+  }
+
+  authorizedGet(url: string, options?: any): Observable<any> {
+
+    const finalOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+      }),
+      ...options
+    };
+
+    return this.request('GET', url, finalOptions);
+
   }
 
   private removeInterceptor(interceptorType: Type<HttpInterceptor>): HttpService {

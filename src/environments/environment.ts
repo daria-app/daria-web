@@ -10,13 +10,19 @@
 // bundle, and you should not use it for any sensitive information like passwords or keys.
 import { env } from './.env';
 
+const API_BASE_URL = 'https://local.hellodaria.com';
+const OAUTH2_REDIRECT_URI = 'https://local.hellodaria.com/login/redirect';
+
 export const environment = {
   production: false,
   hmr: true,
   version: env.npm_package_version + '-dev',
-  serverUrl: '/api',
+  serverUrl: '',
   defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US', 'fr-FR']
+  supportedLanguages: ['en-US', 'fr-FR'],
+  googleAuthUrl: API_BASE_URL + '/oauth2/authorize/google?redirect_uri=' + OAUTH2_REDIRECT_URI,
+  facebookAuthUrl: API_BASE_URL + '/oauth2/authorize/facebook?redirect_uri=' + OAUTH2_REDIRECT_URI,
+  githubAuthUrl: API_BASE_URL + '/oauth2/authorize/github?redirect_uri=' + OAUTH2_REDIRECT_URI
 };
 
 /*
