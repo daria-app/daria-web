@@ -7,14 +7,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import {
-  MatDividerModule, MatIconModule,
+  MatDividerModule,
+  MatIconModule,
   MatListModule,
   MatNavList,
   MatSidenavContainer,
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
