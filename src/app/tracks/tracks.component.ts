@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'apollo-client/util/Observable';
-import { Apollo } from 'apollo-angular';
-
-import { finalize, map } from 'rxjs/operators';
 import { TrackService } from '../../services/track.service';
-import { Query, Track, User } from '../types';
-import gql from 'graphql-tag';
+import { Track } from '../types';
 
 @Component({
   selector: 'app-tracks',
@@ -13,15 +8,15 @@ import gql from 'graphql-tag';
   styleUrls: ['./tracks.component.scss']
 })
 export class TracksComponent implements OnInit {
-  quote: string | undefined;
   isLoading = false;
 
   tracks: Track[];
 
-  constructor(private trackService: TrackService, private apollo: Apollo) {}
+  constructor(private trackService: TrackService) {}
 
   ngOnInit() {
     this.isLoading = true;
+
     this.trackService.getTracks().valueChanges.subscribe(({ data, loading }) => {
       const { tracks } = data;
       this.tracks = tracks;

@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { LoginRedirectComponent } from '@app/login/login-redirect.component';
+import { LoginRedirectComponent } from './login-redirect.component';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 
 @NgModule({
@@ -18,9 +18,6 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
     LoginRoutingModule,
     MatButtonModule
   ],
-  declarations: [
-    LoginComponent,
-    LoginRedirectComponent
-  ]
+  declarations: [LoginComponent, LoginRedirectComponent]
 })
 export class LoginModule {}

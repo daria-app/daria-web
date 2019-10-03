@@ -1,10 +1,9 @@
 import { Inject, Injectable, InjectionToken, Injector, Optional, Type } from '@angular/core';
-import {HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
 import { CacheInterceptor } from './cache.interceptor';
-import { ApiPrefixInterceptor } from './api-prefix.interceptor';
 
 // HttpClient is declared in a re-exported module, so we have to extend the original module to make it work properly
 // (see https://github.com/Microsoft/TypeScript/issues/13897)
@@ -68,7 +67,7 @@ export class HttpService extends HttpClient {
 
     if (!this.interceptors) {
       // Configure default interceptors that can be disabled here
-      this.interceptors = [this.injector.get(ApiPrefixInterceptor), this.injector.get(ErrorHandlerInterceptor)];
+      this.interceptors = [this.injector.get(ErrorHandlerInterceptor)];
     }
   }
 
@@ -83,12 +82,8 @@ export class HttpService extends HttpClient {
     return this.removeInterceptor(ErrorHandlerInterceptor);
   }
 
-  disableApiPrefix(): HttpClient {
-    return this.removeInterceptor(ApiPrefixInterceptor);
-  }
-
   // Override the original method to wire interceptors when triggering the request.
-  request(method?: any, url?: any, options?: any): any {
+  request(method?: any, url?: any, options?: any): Observable<any> {
     const handler = this.interceptors.reduceRight(
       (next, interceptor) => new HttpInterceptorHandler(next, interceptor),
       this.httpHandler
@@ -97,17 +92,15 @@ export class HttpService extends HttpClient {
   }
 
   authorizedGet(url: string, options?: any): Observable<any> {
-
     const finalOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
       }),
       ...options
     };
 
     return this.request('GET', url, finalOptions);
-
   }
 
   private removeInterceptor(interceptorType: Type<HttpInterceptor>): HttpService {

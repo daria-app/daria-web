@@ -6,8 +6,7 @@ import { merge } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import {Logger, I18nService, untilDestroyed } from '@app/core';
-import { AuthenticationService } from '../services/authentication.service';
+import { Logger, I18nService, untilDestroyed } from '@app/core';
 
 const log = new Logger('App');
 
@@ -20,7 +19,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private titleService: Title,
     private translateService: TranslateService,
     private i18nService: I18nService
@@ -59,9 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
-
-    this.authenticationService.getCurrentUser();
-
   }
 
   ngOnDestroy() {

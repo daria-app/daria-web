@@ -1,12 +1,17 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span class="menu-spacer"></span>
     <div class="nav-items">
       <a mat-button [routerLink]="'/home'" class="nav-item">
         <img class="menu-logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
       </a>
       <a mat-button [routerLink]="'/tracks'" class="nav-item">
         <mat-icon aria-hidden="false" aria-label="Example home icon">play_circle_outline</mat-icon>
+      </a>
+    </div>
+    <div class="account-menu">
+      <img *ngIf="userAuthenticated()" src="{{ imageUrl }}" (click)="logout()" />
+      <a *ngIf="!userAuthenticated()" mat-button [routerLink]="'/login'" class="nav-item">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
       </a>
     </div>
   </mat-toolbar-row>

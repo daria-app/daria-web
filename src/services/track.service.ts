@@ -22,13 +22,6 @@ export interface RandomQuoteContext {
 export class TrackService {
   constructor(private httpClient: HttpClient, private apollo: Apollo) {}
 
-  getRandomQuote(context: RandomQuoteContext): Observable<string> {
-    return this.httpClient.get(routes.quote(context)).pipe(
-      map((body: any) => body.value),
-      catchError(() => of('Error, could not load joke :-('))
-    );
-  }
-
   getTracks() {
     const AllTracksQuery = gql`
       query AllTracks {

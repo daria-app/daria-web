@@ -20,28 +20,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  toggleMenu() {
-    this.menuHidden = !this.menuHidden;
-  }
-
-  setLanguage(language: string) {
-    this.i18nService.language = language;
-  }
-
   logout() {
     this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
-  get currentLanguage(): string {
-    return this.i18nService.language;
+  userAuthenticated(): boolean {
+    return this.credentialsService.isAuthenticated();
   }
 
-  get languages(): string[] {
-    return this.i18nService.supportedLanguages;
-  }
-
-  get username(): string | null {
+  get imageUrl(): string | null {
     const credentials = this.credentialsService.credentials;
-    return credentials ? credentials.username : null;
+    return credentials ? credentials.imageUrl : null;
   }
 }

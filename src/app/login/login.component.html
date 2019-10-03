@@ -4,10 +4,10 @@
       <form class="login-form">
         <div class="login-fields">
           <mat-form-field class="login-form-input">
-            <input matInput placeholder="Email" />
+            <input matInput placeholder="Email" (change)="onChange('email')" [value]="email" />
           </mat-form-field>
           <mat-form-field class="login-form-input">
-            <input matInput placeholder="Password" />
+            <input matInput placeholder="Password" (change)="onChange('password')" [value]="password" />
           </mat-form-field>
         </div>
         <div class="login-controls">
@@ -15,7 +15,7 @@
         </div>
       </form>
       <div class="social-login">
-        <a href="/oauth2">
+        <a href="{{ authUrls.facebook }}">
           <img src="assets/continue-with-facebook.png" class="facebook-login" />
         </a>
       </div>

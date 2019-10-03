@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 export interface Credentials {
   // Customize received credentials here
-  username: string;
+  name: string;
+  imageUrl: string;
   token: string;
 }
 
@@ -16,7 +17,6 @@ const credentialsKey = 'credentials';
   providedIn: 'root'
 })
 export class CredentialsService {
-
   private _credentials: Credentials | null = null;
 
   constructor() {

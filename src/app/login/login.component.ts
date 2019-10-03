@@ -4,9 +4,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger, I18nService, AuthenticationService, untilDestroyed } from '@app/core';
+import { Logger, I18nService, untilDestroyed, CredentialsService, AuthenticationService } from '@app/core';
 
 const log = new Logger('Login');
+
+interface AuthUrls {
+  facebook: string;
+  google: string;
+  github: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -14,17 +20,25 @@ const log = new Logger('Login');
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  version: string | null = environment.version;
+  authUrls: AuthUrls = {
+    facebook: environment.facebookAuthUrl,
+    google: environment.googleAuthUrl,
+    github: environment.githubAuthUrl
+  };
+
   error: string | undefined;
   loginForm!: FormGroup;
   isLoading = false;
+
+  email: string;
+  password: string;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private i18nService: I18nService,
-    private authenticationService: AuthenticationService
+    private authService: AuthenticationService,
+    private i18nService: I18nService
   ) {
     this.createForm();
   }
@@ -35,6 +49,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.isLoading = true;
+    this.authService.login({
+      email: this.email,
+      password: this.password
+    });
+
+    /*
     const login$ = this.authenticationService.login(this.loginForm.value);
     login$
       .pipe(
@@ -46,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         credentials => {
-          log.debug(`${credentials.username} successfully logged in`);
+          // log.debug(`${credentials.username} successfully logged in`);
           this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
         },
         error => {
@@ -54,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.error = error;
         }
       );
+     */
   }
 
   setLanguage(language: string) {
