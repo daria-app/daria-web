@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger, I18nService, untilDestroyed, CredentialsService, AuthenticationService } from '@app/core';
+import {Logger, I18nService, untilDestroyed, CredentialsService, AuthenticationService, LoginContext} from '@app/core';
 
 const log = new Logger('Login');
 
@@ -26,74 +26,51 @@ export class LoginComponent implements OnInit, OnDestroy {
     github: environment.githubAuthUrl
   };
 
-  error: string | undefined;
-  loginForm!: FormGroup;
-  isLoading = false;
+  error: object | undefined;
+  loading = false;
 
-  email: string;
-  password: string;
+  loginContext: LoginContext;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private i18nService: I18nService
+    private credentialsService: CredentialsService
   ) {
-    this.createForm();
+    this.loginContext = {
+      email: '',
+      password: ''
+    };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('auth irlks', this.authUrls);
+  }
 
   ngOnDestroy() {}
 
   login() {
-    this.isLoading = true;
-    this.authService.login({
-      email: this.email,
-      password: this.password
-    });
 
-    /*
-    const login$ = this.authenticationService.login(this.loginForm.value);
-    login$
-      .pipe(
-        finalize(() => {
-          this.loginForm.markAsPristine();
-          this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(
-        credentials => {
-          // log.debug(`${credentials.username} successfully logged in`);
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+    this.loading = true;
+
+    this.authService.login(this.loginContext).subscribe(
+      (credentials) => {
+          console.log('login creds', credentials);
+          this.credentialsService.setCredentials(credentials);
+          this.router.navigate(['/home']);
         },
-        error => {
-          log.debug(`Login error: ${error}`);
-          this.error = error;
+      (error) => {
+          console.log('login err', error);
+          this.loading = false;
+          this.error = error.error;
         }
       );
-     */
+
   }
 
-  setLanguage(language: string) {
-    this.i18nService.language = language;
+  onInput(event: any) {
+    this.loginContext[event.target.name] = event.target.value;
+    console.log(event);
   }
 
-  get currentLanguage(): string {
-    return this.i18nService.language;
-  }
-
-  get languages(): string[] {
-    return this.i18nService.supportedLanguages;
-  }
-
-  private createForm() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      remember: true
-    });
-  }
 }

@@ -8,7 +8,7 @@ import { LoginRedirectComponent } from './login-redirect.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { title: extract('Login') } },
   { path: 'login/redirect', component: LoginRedirectComponent, data: { title: extract('Login') } }
-  ];
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {Observable, of } from 'rxjs';
 
 import { Credentials, CredentialsService } from './credentials.service';
 import { map, mergeMap } from 'rxjs/operators';
@@ -15,22 +15,27 @@ export interface LoginContext {
   providedIn: 'root'
 })
 export class AuthenticationService {
+
   constructor(private credentialsService: CredentialsService, private httpService: HttpService) {}
 
   login(context: LoginContext): Observable<Credentials> {
-    this.httpService
+
+    return this.httpService
       .request('POST', '/auth/login', {
         body: context
-      })
-      .subscribe(result => {
-        localStorage.setItem('accessToken', result.token);
-      });
+      }).pipe(
+        mergeMap((result) => {
+          if (!result.accessToken) {
+            throw result;
+          }
+          localStorage.setItem('accessToken', result.accessToken);
+          return this.getCurrentUser();
+        })
+    );
 
-    return null;
   }
 
   logout(): Observable<boolean> {
-    // Customize credentials invalidation here
     this.credentialsService.setCredentials();
     return of(true);
   }
@@ -46,4 +51,5 @@ export class AuthenticationService {
       })
     );
   }
+
 }

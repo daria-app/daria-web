@@ -9,9 +9,9 @@
       </a>
     </div>
     <div class="account-menu">
-      <img *ngIf="userAuthenticated()" src="{{ imageUrl }}" (click)="logout()" />
-      <a *ngIf="!userAuthenticated()" mat-button [routerLink]="'/login'" class="nav-item">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+      <img *ngIf="userAuthenticated() && imageUrl" src="{{ imageUrl }}" (click)="logout()" />
+      <a *ngIf="userAuthenticated() && !imageUrl" mat-button (click)="logout()" class="nav-item">
+        <mat-icon aria-hidden="false" aria-label="Log out">person</mat-icon>
       </a>
     </div>
   </mat-toolbar-row>
