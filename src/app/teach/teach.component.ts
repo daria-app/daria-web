@@ -4,10 +4,10 @@ import { Track } from '../types';
 
 @Component({
   selector: 'app-tracks',
-  templateUrl: './tracks.component.html',
-  styleUrls: ['./tracks.component.scss']
+  templateUrl: './teach.component.html',
+  styleUrls: ['./teach.component.scss']
 })
-export class TracksComponent implements OnInit {
+export class TeachComponent implements OnInit {
   isLoading = false;
 
   tracks: Track[];

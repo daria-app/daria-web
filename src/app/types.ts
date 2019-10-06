@@ -1,21 +1,22 @@
-export type Query = {
+export interface Query {
   tracks: [Track];
-  user(id: string): User;
-  tracksByUser(userId: string): [Track];
-};
+  track: Track;
+  user: User;
+  tracksByUser: [Track];
+}
 
-export type User = {
+export interface User {
   id: string;
   username: string;
   createdAt: string;
   subscribedTracks: [Track];
   contributedTracks: [Track];
-};
+}
 
-export type Track = {
+export interface Track {
   id: string;
   title: string;
   minutesPracticed: number;
   subscribers: [User];
   contributors: [User];
-};
+}

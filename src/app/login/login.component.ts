@@ -4,7 +4,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import {Logger, I18nService, untilDestroyed, CredentialsService, AuthenticationService, LoginContext} from '@app/core';
+import {
+  Logger,
+  I18nService,
+  untilDestroyed,
+  CredentialsService,
+  AuthenticationService,
+  LoginContext
+} from '@app/core';
 
 const log = new Logger('Login');
 
@@ -50,27 +57,23 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   login() {
-
     this.loading = true;
 
     this.authService.login(this.loginContext).subscribe(
-      (credentials) => {
-          console.log('login creds', credentials);
-          this.credentialsService.setCredentials(credentials);
-          this.router.navigate(['/home']);
-        },
-      (error) => {
-          console.log('login err', error);
-          this.loading = false;
-          this.error = error.error;
-        }
-      );
-
+      credentials => {
+        console.log('login creds', credentials);
+        this.credentialsService.setCredentials(credentials);
+        this.router.navigate(['/home']);
+      },
+      error => {
+        console.log('login err', error);
+        this.loading = false;
+        this.error = error.error;
+      }
+    );
   }
 
   onInput(event: any) {
     this.loginContext[event.target.name] = event.target.value;
-    console.log(event);
   }
-
 }

@@ -3,12 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { extract } from '@app/core';
 import { Shell } from '@app/shell/shell.service';
-import { TracksComponent } from './tracks.component';
+import { ViewTrackComponent } from './view-track.component';
 
 const routes: Routes = [
   Shell.childRoutes([
-    { path: 'tracks', component: TracksComponent, data: { title: extract('Tracks') } },
-    { path: 'tracks/:id', component: TracksComponent, data: { title: extract('Track') } }
+    { path: 'teach/tracks/:id/view', component: ViewTrackComponent, data: { title: extract('View track') } }
   ])
 ];
 
@@ -17,4 +16,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class TracksRoutingModule {}
+export class ViewTrackRoutingModule {}

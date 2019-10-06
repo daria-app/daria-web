@@ -2,15 +2,27 @@
   <div class="login-screen">
     <div class="login-container">
       <div *ngIf="error" class="login-error">
-        {{error.message}}
+        {{ error.message }}
       </div>
       <form class="login-form">
         <div class="login-fields">
           <mat-form-field class="login-form-input">
-            <input matInput placeholder="Email" name="email" (input)="onInput($event)" [(ngModel)]="loginContext.email" />
+            <input
+              matInput
+              placeholder="Email"
+              name="email"
+              (input)="onInput($event)"
+              [(ngModel)]="loginContext.email"
+            />
           </mat-form-field>
           <mat-form-field class="login-form-input">
-            <input matInput placeholder="Password" name="password" (input)="onInput($event)" [(ngModel)]="loginContext.password" />
+            <input
+              matInput
+              placeholder="Password"
+              name="password"
+              (input)="onInput($event)"
+              [(ngModel)]="loginContext.password"
+            />
           </mat-form-field>
         </div>
         <div class="login-controls">

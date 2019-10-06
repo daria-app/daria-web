@@ -16,10 +16,13 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
-import { TracksModule } from './tracks/tracks.module';
+import { TeachModule } from './teach/teach.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LearnModule } from '@app/learn/learn.module';
+import { EditTrackModule } from '@app/teach/tracks/edit-track/edit-track.module';
+import { ViewTrackModule } from '@app/teach/tracks/view-track/view-track.module';
 
 @NgModule({
   imports: [
@@ -36,7 +39,10 @@ import { AppRoutingModule } from './app-routing.module';
     SharedModule,
     ShellModule,
     HomeModule,
-    TracksModule,
+    LearnModule,
+    ViewTrackModule,
+    EditTrackModule,
+    TeachModule,
     LoginModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],

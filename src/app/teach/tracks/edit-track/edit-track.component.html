@@ -1,0 +1,18 @@
+<div class="app-container">
+  <div class="edit-track-container">
+    <div class="edit-track-view-title">
+      {{ track ? 'Edit track' : 'Create track' }}
+    </div>
+    <div class="edit-track-inputs">
+      <div class="edit-track-input">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput name="title" placeholder="Track title" (input)="onInput($event)" [value]="trackInput.title" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="edit-track-controls">
+      <button mat-raised-button (click)="save()" color="primary">{{ track ? 'Save' : 'Create' }}</button>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 <div class="app-container">
   <div class="home">
-    <mat-card>
+    <mat-card [routerLink]="'/learn'" class="learn-card">
       Learn
     </mat-card>
-    <mat-card>
-      Learn
+    <mat-card [routerLink]="'/teach'" class="teach-card">
+      Teach
     </mat-card>
   </div>
   <app-loader [isLoading]="isLoading"></app-loader>

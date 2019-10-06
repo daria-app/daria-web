@@ -1,0 +1,26 @@
+.edit-track-container {
+  margin-top: 12px;
+}
+
+.edit-track-view-title {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.edit-track-inputs {
+  width: 100%;
+  .edit-track-input {
+    width: 100%;
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.edit-track-controls {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    width: 100%;
+  }
+}
