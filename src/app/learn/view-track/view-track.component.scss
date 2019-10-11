@@ -1,0 +1,31 @@
+.teach-container {
+  min-height: 100%;
+  margin-bottom: 42px;
+}
+
+.tracks {
+  margin-top: 8px;
+  .track {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+}
+
+.settings-button {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  color: white;
+  text-align: right;
+  width: 40px;
+}
+
+.view-track-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+  margin-top: 12px;
+  button {
+    width: 100%;
+  }
+}

@@ -1,5 +1,7 @@
 <div class="app-container">
   <div class="tracks">
-    <div *ngFor="let track of tracks" class="track">Learn {{ track.title }}</div>
+    <div *ngFor="let track of tracks" class="track">
+      <a [routerLink]="['/learn/tracks', track.id, 'view']">{{ track.title }}</a>
+    </div>
   </div>
 </div>

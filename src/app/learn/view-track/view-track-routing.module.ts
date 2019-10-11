@@ -7,7 +7,7 @@ import { ViewTrackComponent } from './view-track.component';
 
 const routes: Routes = [
   Shell.childRoutes([
-    { path: 'teach/tracks/:id/view', component: ViewTrackComponent, data: { title: extract('View track') } }
+    { path: 'learn/tracks/:id/view', component: ViewTrackComponent, data: { title: extract('View track') } }
   ])
 ];
 

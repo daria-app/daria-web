@@ -2,7 +2,7 @@
   <div class="teach-container">
     <div class="tracks">
       <div *ngFor="let track of tracks" class="track">
-        <a [routerLink]="['/teach/tracks', track.id, 'view']">Teach {{ track.title }}</a>
+        <a [routerLink]="['/teach/tracks', track.id, 'manage']">{{ track.title }}</a>
       </div>
     </div>
     <div class="add-button">

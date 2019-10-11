@@ -1,0 +1,11 @@
+<div class="app-container">
+  <div *ngIf="track" class="view-track-container">
+    <div class="track-title">{{ track.title }}</div>
+    <div class="track-description">{{ track.description }}</div>
+    <div class="view-track-controls">
+      <button mat-raised-button (click)="follow()" [color]="!isFollowed ? 'primary' : 'warn'">
+        {{ !isFollowed ? 'Follow' : 'Leave' }}
+      </button>
+    </div>
+  </div>
+</div>

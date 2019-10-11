@@ -1,0 +1,12 @@
+<div class="app-container">
+  <div *ngIf="track" class="view-track-container">
+    <div class="track-title">{{ track.title }}</div>
+    <div class="settings-button">
+      <button mat-mini-fab color="primary">
+        <mat-icon aria-hidden="false" aria-label="Settings" [routerLink]="['/teach/tracks', track.id, 'edit']"
+          >settings</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+</div>

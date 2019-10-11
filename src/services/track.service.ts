@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Query, Track } from '@app/types';
+import { Mutation, Query, Track } from '@app/types';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
@@ -20,7 +20,16 @@ export interface RandomQuoteContext {
   providedIn: 'root'
 })
 export class TrackService {
+  _tracks: Subject<Array<Track>> = new Subject<Array<Track>>();
+
   constructor(private httpClient: HttpClient, private apollo: Apollo) {}
+
+  fetchTracks() {
+    this.getTracks().valueChanges.subscribe(({ data }) => {
+      const { tracks } = data;
+      this._tracks.next(tracks);
+    });
+  }
 
   getTracks() {
     const AllTracksQuery = gql`
@@ -33,7 +42,8 @@ export class TrackService {
     `;
 
     return this.apollo.watchQuery<Query>({
-      query: AllTracksQuery
+      query: AllTracksQuery,
+      fetchPolicy: 'no-cache'
     });
   }
 
@@ -43,6 +53,7 @@ export class TrackService {
         track(id: $id) {
           id
           title
+          description
         }
       }
     `;
@@ -59,11 +70,26 @@ export class TrackService {
         saveTrack(input: $input) {
           id
           title
+          description
         }
       }
     `;
 
     console.log('sending', trackInput);
-    return this.apollo.mutate({ mutation: SaveTrackMutation, variables: { input: trackInput } });
+    return this.apollo.mutate<Mutation>({ mutation: SaveTrackMutation, variables: { input: trackInput } });
+  }
+
+  deleteTrack(id: string) {
+    const DeleteTrackMutation = gql`
+      mutation DeleteTrack($id: String!) {
+        deleteTrack(id: $id) {
+          id
+          title
+        }
+      }
+    `;
+
+    console.log('deleting', id);
+    return this.apollo.mutate<Mutation>({ mutation: DeleteTrackMutation, variables: { id } });
   }
 }

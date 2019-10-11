@@ -5,6 +5,10 @@ export interface Query {
   tracksByUser: [Track];
 }
 
+export interface Mutation {
+  saveTrack: Track;
+}
+
 export interface User {
   id: string;
   username: string;
@@ -16,7 +20,14 @@ export interface User {
 export interface Track {
   id: string;
   title: string;
+  description: string;
   minutesPracticed: number;
   subscribers: [User];
   contributors: [User];
+}
+
+export interface TrackInput {
+  id: string;
+  title: string;
+  description: string;
 }

@@ -8,19 +8,15 @@ import { Track } from '../types';
   styleUrls: ['./teach.component.scss']
 })
 export class TeachComponent implements OnInit {
-  isLoading = false;
-
   tracks: Track[];
 
-  constructor(private trackService: TrackService) {}
+  constructor(private trackService: TrackService) {
+    this.trackService._tracks.subscribe(tracks => {
+      this.tracks = tracks;
+    });
+  }
 
   ngOnInit() {
-    this.isLoading = true;
-
-    this.trackService.getTracks().valueChanges.subscribe(({ data, loading }) => {
-      const { tracks } = data;
-      this.tracks = tracks;
-      this.isLoading = loading;
-    });
+    this.trackService.fetchTracks();
   }
 }

@@ -7,10 +7,10 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-track',
-  templateUrl: './view-track.component.html',
-  styleUrls: ['./view-track.component.scss']
+  templateUrl: './manage-track.component.html',
+  styleUrls: ['./manage-track.component.scss']
 })
-export class ViewTrackComponent implements OnInit {
+export class ManageTrackComponent implements OnInit {
   isLoading = false;
 
   error: object = null;

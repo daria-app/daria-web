@@ -22,7 +22,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LearnModule } from '@app/learn/learn.module';
 import { EditTrackModule } from '@app/teach/tracks/edit-track/edit-track.module';
-import { ViewTrackModule } from '@app/teach/tracks/view-track/view-track.module';
+import { ManageTrackModule } from '@app/teach/tracks/manage-track/manage-track.module';
+import { ViewTrackModule } from '@app/learn/view-track/view-track.module';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { ViewTrackModule } from '@app/teach/tracks/view-track/view-track.module'
     HomeModule,
     LearnModule,
     ViewTrackModule,
+    ManageTrackModule,
     EditTrackModule,
     TeachModule,
     LoginModule,

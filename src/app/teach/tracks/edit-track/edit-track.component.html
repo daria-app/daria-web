@@ -5,14 +5,39 @@
     </div>
     <div class="edit-track-inputs">
       <div class="edit-track-input">
-        <mat-form-field appearance="outline">
-          <mat-label>Title</mat-label>
-          <input matInput name="title" placeholder="Track title" (input)="onInput($event)" [value]="trackInput.title" />
-        </mat-form-field>
+        <div class="track-title">
+          <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input
+              matInput
+              name="title"
+              placeholder="Track title"
+              (input)="onInput($event)"
+              [value]="trackInput.title"
+            />
+          </mat-form-field>
+        </div>
+        <div class="track-description">
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input
+              matInput
+              name="description"
+              placeholder="Track description"
+              (input)="onInput($event)"
+              [value]="trackInput.description"
+            />
+          </mat-form-field>
+        </div>
       </div>
     </div>
     <div class="edit-track-controls">
-      <button mat-raised-button (click)="save()" color="primary">{{ track ? 'Save' : 'Create' }}</button>
+      <button mat-raised-button (click)="save()" [disabled]="!isChanged" color="primary">
+        {{ track ? 'Save' : 'Create' }}
+      </button>
+    </div>
+    <div class="edit-track-controls">
+      <button *ngIf="track" mat-raised-button (click)="delete()" color="warn">Delete</button>
     </div>
   </div>
 </div>
