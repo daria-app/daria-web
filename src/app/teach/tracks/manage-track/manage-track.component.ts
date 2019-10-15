@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackService } from '../../../../services/track.service';
-import { Track } from '@app/types';
+import { PhraseInput, Track } from '@app/types';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -11,10 +11,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./manage-track.component.scss']
 })
 export class ManageTrackComponent implements OnInit {
-  isLoading = false;
-
   error: object = null;
   track: Track = null;
+  phraseInput: PhraseInput = {
+    text: null,
+    trackId: null,
+    order: 0
+  };
 
   constructor(private trackService: TrackService, private route: ActivatedRoute) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
@@ -26,13 +29,27 @@ export class ManageTrackComponent implements OnInit {
             message: 'Track not found'
           };
         }
+        console.log('managed track', data);
         this.track = data.track;
-        this.isLoading = loading;
+        this.phraseInput.trackId = this.track.id;
       });
     });
   }
 
-  ngOnInit() {
-    this.isLoading = true;
+  ngOnInit() {}
+
+  onPhraseInput(event: any) {
+    this.phraseInput.text = event.target.value;
+  }
+
+  addPhrase() {
+    console.log('add phrase', this.phraseInput);
+    this.trackService.savePhrase(this.phraseInput).subscribe(({ data }) => {
+      console.log('saved phrase', data);
+      this.track.phrases.push(data.savePhrase);
+      //this.track = data.saveTrack;
+      //this.trackInput = this.inputValues(this.track);
+      //this.trackService.fetchManagedTracks();
+    });
   }
 }

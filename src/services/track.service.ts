@@ -20,14 +20,14 @@ export interface RandomQuoteContext {
   providedIn: 'root'
 })
 export class TrackService {
-  _tracks: Subject<Array<Track>> = new Subject<Array<Track>>();
+  _managedTracks: Subject<Array<Track>> = new Subject<Array<Track>>();
 
   constructor(private httpClient: HttpClient, private apollo: Apollo) {}
 
-  fetchTracks() {
-    this.getTracks().valueChanges.subscribe(({ data }) => {
-      const { tracks } = data;
-      this._tracks.next(tracks);
+  fetchManagedTracks() {
+    this.getManagedTracks().valueChanges.subscribe(({ data }) => {
+      const { managedTracks } = data;
+      this._managedTracks.next(managedTracks);
     });
   }
 
@@ -37,12 +37,64 @@ export class TrackService {
         tracks {
           id
           title
+          description
         }
       }
     `;
 
     return this.apollo.watchQuery<Query>({
       query: AllTracksQuery,
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  getFollowedTracks() {
+    const FollowedTracksQuery = gql`
+      query FollowedTracks {
+        followedTracks {
+          id
+          title
+          description
+        }
+      }
+    `;
+
+    return this.apollo.watchQuery<Query>({
+      query: FollowedTracksQuery,
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  getAvailableTracks() {
+    const AvailableTracksQuery = gql`
+      query AvailableTracks {
+        availableTracks {
+          id
+          title
+          description
+        }
+      }
+    `;
+
+    return this.apollo.watchQuery<Query>({
+      query: AvailableTracksQuery,
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  getManagedTracks() {
+    const ManagedTracksQuery = gql`
+      query ManagedTracks {
+        managedTracks {
+          id
+          title
+          description
+        }
+      }
+    `;
+
+    return this.apollo.watchQuery<Query>({
+      query: ManagedTracksQuery,
       fetchPolicy: 'no-cache'
     });
   }
@@ -54,13 +106,21 @@ export class TrackService {
           id
           title
           description
+          subscribed
+          subscriptionId
+          phrases {
+            id
+            text
+            order
+          }
         }
       }
     `;
 
     return this.apollo.watchQuery<Query>({
       query: TrackByIdQuery,
-      variables: { id }
+      variables: { id },
+      fetchPolicy: 'no-cache'
     });
   }
 
@@ -91,5 +151,57 @@ export class TrackService {
 
     console.log('deleting', id);
     return this.apollo.mutate<Mutation>({ mutation: DeleteTrackMutation, variables: { id } });
+  }
+
+  followTrack(trackSubscriptionInput: object) {
+    const SaveTrackSubscriptionMutation = gql`
+      mutation SaveTrackSubscription($input: TrackSubscriptionInput!) {
+        saveTrackSubscription(input: $input) {
+          id
+          track {
+            id
+            title
+          }
+        }
+      }
+    `;
+
+    console.log('following', trackSubscriptionInput);
+    return this.apollo.mutate<Mutation>({
+      mutation: SaveTrackSubscriptionMutation,
+      variables: { input: trackSubscriptionInput }
+    });
+  }
+
+  unfollowTrack(subscriptionId: string) {
+    const DeleteTrackSubscriptionMutation = gql`
+      mutation DeleteTrackSubscription($input: String!) {
+        deleteTrackSubscription(input: $input) {
+          id
+        }
+      }
+    `;
+
+    console.log('unfollowing', subscriptionId);
+    return this.apollo.mutate<Mutation>({
+      mutation: DeleteTrackSubscriptionMutation,
+      variables: { input: subscriptionId }
+    });
+  }
+
+  savePhrase(phraseInput: object) {
+    const SavePhraseMutation = gql`
+      mutation SavePhrase($input: PhraseInput!) {
+        savePhrase(input: $input) {
+          id
+          trackId
+          text
+          order
+        }
+      }
+    `;
+
+    console.log('sending phrase', phraseInput);
+    return this.apollo.mutate<Mutation>({ mutation: SavePhraseMutation, variables: { input: phraseInput } });
   }
 }

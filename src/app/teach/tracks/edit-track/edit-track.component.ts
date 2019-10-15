@@ -58,7 +58,7 @@ export class EditTrackComponent implements OnInit {
       console.log('saved track', data);
       this.track = data.saveTrack;
       this.trackInput = this.inputValues(this.track);
-      this.trackService.fetchTracks();
+      this.trackService.fetchManagedTracks();
       this.isChanged = false;
       if (isNew) {
         this.router.navigateByUrl('/teach');
@@ -69,7 +69,7 @@ export class EditTrackComponent implements OnInit {
   delete() {
     this.trackService.deleteTrack(this.track.id).subscribe(({ data }) => {
       console.log('deleted track', data);
-      this.trackService.fetchTracks();
+      this.trackService.fetchManagedTracks();
       this.router.navigateByUrl('/teach');
     });
   }

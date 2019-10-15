@@ -15,7 +15,6 @@ export class ViewTrackComponent implements OnInit {
 
   error: object = null;
   track: Track = null;
-  isFollowed = false;
 
   constructor(private trackService: TrackService, private route: ActivatedRoute) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
@@ -37,5 +36,21 @@ export class ViewTrackComponent implements OnInit {
     this.isLoading = true;
   }
 
-  follow() {}
+  follow() {
+    this.trackService
+      .followTrack({
+        trackId: this.track.id
+      })
+      .subscribe(({ data }) => {
+        this.track.subscribed = true;
+        this.track.subscriptionId = data.saveTrackSubscription.id;
+      });
+  }
+
+  unfollow() {
+    this.trackService.unfollowTrack(this.track.subscriptionId).subscribe(({ data }) => {
+      this.track.subscribed = false;
+      this.track.subscriptionId = null;
+    });
+  }
 }

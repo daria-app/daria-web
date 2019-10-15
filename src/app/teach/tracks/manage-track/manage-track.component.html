@@ -1,6 +1,16 @@
 <div class="app-container">
   <div *ngIf="track" class="view-track-container">
     <div class="track-title">{{ track.title }}</div>
+    <div class="add-phrase">
+      <mat-form-field appearance="outline">
+        <mat-label>Add phrase</mat-label>
+        <textarea matInput (input)="onPhraseInput($event)" placeholder="Write a phrase"></textarea>
+        <mat-icon matSuffix (click)="addPhrase()">add_circle</mat-icon>
+      </mat-form-field>
+    </div>
+    <div *ngFor="let phrase of track.phrases" class="track-phrase">
+      {{ phrase.text }}
+    </div>
     <div class="settings-button">
       <button mat-mini-fab color="primary">
         <mat-icon aria-hidden="false" aria-label="Settings" [routerLink]="['/teach/tracks', track.id, 'edit']"

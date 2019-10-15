@@ -11,6 +11,25 @@
   }
 }
 
+.track-title {
+  padding-top: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.subscribed-track-title {
+  margin-top: 24px;
+  margin-left: 12px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.track-description {
+  margin-top: 6px;
+}
+
 .settings-button {
   position: fixed;
   right: 12px;
@@ -24,7 +43,7 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 6px;
-  margin-top: 12px;
+  margin-top: 18px;
   button {
     width: 100%;
   }

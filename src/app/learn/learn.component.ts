@@ -8,20 +8,20 @@ import { Track } from '../types';
   styleUrls: ['./learn.component.scss']
 })
 export class LearnComponent implements OnInit {
-  isLoading = false;
-
-  tracks: Track[];
+  availableTracks: Track[];
+  followedTracks: Track[];
 
   constructor(private trackService: TrackService) {}
 
   ngOnInit() {
-    console.log('Learn cmpt loaded');
-    this.isLoading = true;
+    this.trackService.getFollowedTracks().valueChanges.subscribe(({ data, loading }) => {
+      const { followedTracks } = data;
+      this.followedTracks = followedTracks;
+    });
 
-    this.trackService.getTracks().valueChanges.subscribe(({ data, loading }) => {
-      const { tracks } = data;
-      this.tracks = tracks;
-      this.isLoading = loading;
+    this.trackService.getAvailableTracks().valueChanges.subscribe(({ data, loading }) => {
+      const { availableTracks } = data;
+      this.availableTracks = availableTracks;
     });
   }
 }

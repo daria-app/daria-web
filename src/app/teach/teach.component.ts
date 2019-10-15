@@ -8,15 +8,15 @@ import { Track } from '../types';
   styleUrls: ['./teach.component.scss']
 })
 export class TeachComponent implements OnInit {
-  tracks: Track[];
+  managedTracks: Track[];
 
   constructor(private trackService: TrackService) {
-    this.trackService._tracks.subscribe(tracks => {
-      this.tracks = tracks;
+    this.trackService._managedTracks.subscribe(managedTracks => {
+      this.managedTracks = managedTracks;
     });
   }
 
   ngOnInit() {
-    this.trackService.fetchTracks();
+    this.trackService.fetchManagedTracks();
   }
 }

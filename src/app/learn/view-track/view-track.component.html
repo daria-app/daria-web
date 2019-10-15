@@ -1,11 +1,25 @@
 <div class="app-container">
   <div *ngIf="track" class="view-track-container">
-    <div class="track-title">{{ track.title }}</div>
-    <div class="track-description">{{ track.description }}</div>
-    <div class="view-track-controls">
-      <button mat-raised-button (click)="follow()" [color]="!isFollowed ? 'primary' : 'warn'">
-        {{ !isFollowed ? 'Follow' : 'Leave' }}
-      </button>
+    <div *ngIf="!track.subscribed" class="unsubscribed-track">
+      <div class="track-title">
+        {{ track.title }}
+      </div>
+      <div class="track-description">{{ track.description }}</div>
+      <div class="view-track-controls">
+        <button mat-raised-button (click)="follow()" color="primary">
+          Follow
+        </button>
+      </div>
+    </div>
+    <div *ngIf="track.subscribed" class="subscribed-track">
+      <div class="subscribed-track-title">
+        {{ track.title }}
+      </div>
+      <div class="settings-button">
+        <button mat-mini-fab color="warn">
+          <mat-icon aria-hidden="false" aria-label="Settings" (click)="unfollow()">close</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

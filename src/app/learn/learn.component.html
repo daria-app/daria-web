@@ -1,7 +1,23 @@
 <div class="app-container">
   <div class="tracks">
-    <div *ngFor="let track of tracks" class="track">
-      <a [routerLink]="['/learn/tracks', track.id, 'view']">{{ track.title }}</a>
-    </div>
+    <mat-list>
+      <h3 mat-subheader>Followed tracks</h3>
+      <mat-list-item *ngFor="let track of followedTracks">
+        <mat-icon mat-list-icon>play_arrow</mat-icon>
+        <h4 mat-line>
+          <a [routerLink]="['/learn/tracks', track.id, 'view']">{{ track.title }}</a>
+        </h4>
+        <p mat-line>{{ track.description }}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Available tracks</h3>
+      <mat-list-item *ngFor="let track of availableTracks">
+        <mat-icon mat-list-icon>grade</mat-icon>
+        <h4 mat-line>
+          <a [routerLink]="['/learn/tracks', track.id, 'view']">{{ track.title }}</a>
+        </h4>
+        <p mat-line>{{ track.description }}</p>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>
