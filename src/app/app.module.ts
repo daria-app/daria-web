@@ -24,6 +24,7 @@ import { LearnModule } from '@app/learn/learn.module';
 import { EditTrackModule } from '@app/teach/tracks/edit-track/edit-track.module';
 import { ManageTrackModule } from '@app/teach/tracks/manage-track/manage-track.module';
 import { ViewTrackModule } from '@app/learn/view-track/view-track.module';
+import { PhraseModule } from '@app/teach/tracks/manage-track/phrase/phrase.module';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { ViewTrackModule } from '@app/learn/view-track/view-track.module';
     ViewTrackModule,
     ManageTrackModule,
     EditTrackModule,
+    PhraseModule,
     TeachModule,
     LoginModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route

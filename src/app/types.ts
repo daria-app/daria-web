@@ -1,3 +1,5 @@
+import { ManagePhraseComponent } from '@app/teach/tracks/manage-track/phrase/manage-phrase.component';
+
 export interface Query {
   tracks: [Track];
   followedTracks: [Track];
@@ -5,13 +7,17 @@ export interface Query {
   managedTracks: [Track];
   track: Track;
   user: User;
+  phrase: Phrase;
   tracksByUser: [Track];
 }
 
 export interface Mutation {
   saveTrack: Track;
   savePhrase: Phrase;
+  deletePhrase: Phrase;
   saveTrackSubscription: TrackSubscription;
+  savePhraseComponent: PhraseComponent;
+  deletePhraseComponent: PhraseComponent;
 }
 
 export interface User {
@@ -51,13 +57,30 @@ export interface TrackSubscriptionInput {
 }
 
 export interface Phrase {
+  id: string;
+  text: string;
+  trackId: string;
+  order: number;
+  components: PhraseComponent[];
+}
+
+export interface PhraseInput {
+  id: string;
   text: string;
   trackId: string;
   order: number;
 }
 
-export interface PhraseInput {
-  text: string;
-  trackId: string;
-  order: number;
+export interface PhraseComponent {
+  id: string;
+  phraseId: string;
+  component: string;
+  explanation: string;
+}
+
+export interface PhraseComponentInput {
+  id: string;
+  phraseId: string;
+  component: string;
+  explanation: string;
 }

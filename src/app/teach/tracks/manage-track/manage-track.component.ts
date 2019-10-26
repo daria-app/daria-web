@@ -14,6 +14,7 @@ export class ManageTrackComponent implements OnInit {
   error: object = null;
   track: Track = null;
   phraseInput: PhraseInput = {
+    id: null,
     text: null,
     trackId: null,
     order: 0
@@ -47,6 +48,7 @@ export class ManageTrackComponent implements OnInit {
     this.trackService.savePhrase(this.phraseInput).subscribe(({ data }) => {
       console.log('saved phrase', data);
       this.track.phrases.push(data.savePhrase);
+      this.phraseInput.text = '';
       //this.track = data.saveTrack;
       //this.trackInput = this.inputValues(this.track);
       //this.trackService.fetchManagedTracks();

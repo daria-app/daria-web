@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Mutation, Query, Track } from '@app/types';
+import { Mutation, PhraseComponentInput, Query, Track } from '@app/types';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
@@ -110,6 +110,7 @@ export class TrackService {
           subscriptionId
           phrases {
             id
+            trackId
             text
             order
           }
@@ -189,6 +190,31 @@ export class TrackService {
     });
   }
 
+  getPhrase(id: string) {
+    const PhraseByIdQuery = gql`
+      query PhraseById($id: String!) {
+        phrase(id: $id) {
+          id
+          trackId
+          order
+          text
+          components {
+            id
+            phraseId
+            component
+            explanation
+          }
+        }
+      }
+    `;
+
+    return this.apollo.watchQuery<Query>({
+      query: PhraseByIdQuery,
+      variables: { id },
+      fetchPolicy: 'no-cache'
+    });
+  }
+
   savePhrase(phraseInput: object) {
     const SavePhraseMutation = gql`
       mutation SavePhrase($input: PhraseInput!) {
@@ -203,5 +229,56 @@ export class TrackService {
 
     console.log('sending phrase', phraseInput);
     return this.apollo.mutate<Mutation>({ mutation: SavePhraseMutation, variables: { input: phraseInput } });
+  }
+
+  deletePhrase(id: string) {
+    const DeletePhraseMutation = gql`
+      mutation DeletePhrase($id: String!) {
+        deletePhrase(id: $id) {
+          id
+          trackId
+          order
+          text
+        }
+      }
+    `;
+
+    console.log('deleting phrase', id);
+    return this.apollo.mutate<Mutation>({ mutation: DeletePhraseMutation, variables: { id } });
+  }
+
+  savePhraseComponent(phraseComponentInput: PhraseComponentInput) {
+    const SavePhraseComponentMutation = gql`
+      mutation SavePhraseComponent($input: PhraseComponentInput!) {
+        savePhraseComponent(input: $input) {
+          id
+          phraseId
+          component
+          explanation
+        }
+      }
+    `;
+
+    console.log('sending phrase component', phraseComponentInput);
+    return this.apollo.mutate<Mutation>({
+      mutation: SavePhraseComponentMutation,
+      variables: { input: phraseComponentInput }
+    });
+  }
+
+  deletePhraseComponent(id: string) {
+    const DeletePhraseComponentMutation = gql`
+      mutation DeletePhraseComponent($id: String!) {
+        deletePhraseComponent(id: $id) {
+          id
+          phraseId
+          component
+          explanation
+        }
+      }
+    `;
+
+    console.log('deleting phrase component', id);
+    return this.apollo.mutate<Mutation>({ mutation: DeletePhraseComponentMutation, variables: { id } });
   }
 }

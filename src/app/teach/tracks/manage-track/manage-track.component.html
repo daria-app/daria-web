@@ -4,12 +4,17 @@
     <div class="add-phrase">
       <mat-form-field appearance="outline">
         <mat-label>Add phrase</mat-label>
-        <textarea matInput (input)="onPhraseInput($event)" placeholder="Write a phrase"></textarea>
+        <textarea
+          matInput
+          (input)="onPhraseInput($event)"
+          [value]="phraseInput.text"
+          placeholder="Write a phrase"
+        ></textarea>
         <mat-icon matSuffix (click)="addPhrase()">add_circle</mat-icon>
       </mat-form-field>
     </div>
     <div *ngFor="let phrase of track.phrases" class="track-phrase">
-      {{ phrase.text }}
+      <a [routerLink]="['/teach/tracks/', track.id, 'phrases', phrase.id]">{{ phrase.order }}</a> {{ phrase.text }}
     </div>
     <div class="settings-button">
       <button mat-mini-fab color="primary">

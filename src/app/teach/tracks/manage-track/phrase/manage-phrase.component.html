@@ -1,0 +1,40 @@
+<div *ngIf="phrase" class="manage-phrase-container">
+  <div class="manage-phrase-text">
+    {{ phrase.text }}
+  </div>
+  <div class="add-phrase-component">
+    <mat-form-field appearance="outline">
+      <mat-label>Phrase component</mat-label>
+      <input
+        type="text"
+        name="component"
+        matInput
+        (input)="onInput($event, 'phraseComponentInput')"
+        [value]="phraseComponentInput.component"
+        placeholder="Phrase component text"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="phrase-component-explanation">
+      <mat-label>Explanation</mat-label>
+      <input
+        type="text"
+        name="explanation"
+        matInput
+        (input)="onInput($event, 'phraseComponentInput')"
+        [value]="phraseComponentInput.explanation"
+        placeholder="Phrase component explanation"
+      />
+    </mat-form-field>
+    <div class="add-phrase-component-controls">
+      <button mat-raised-button color="primary" (click)="addPhraseComponent()">Add</button>
+    </div>
+    <div class="phrase-components">
+      <mat-chip-list *ngFor="let phraseComponent of phrase.components" #chipList aria-label="Fruit selection">
+        <mat-chip [selectable]="true" [removable]="true" (removed)="deletePhraseComponent(phraseComponent.id)">
+          {{ phraseComponent.component }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>
